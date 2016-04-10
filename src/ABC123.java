@@ -13,31 +13,42 @@ public class ABC123 {
     private static LinkedList<String> original = new LinkedList<String>();
     private static String orderedOriginalList;
     private static String recalledList;
-
+    private static LinkedList<String> lettersList = new LinkedList<>();
+    private static LinkedList<String> numbersList = new LinkedList<>();
     public static void main(String[] args) {
         int level = 1;
+        final String[] letters = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "P", "Q", "R",
+                "S", "T", "U", "V", "W", "X", "Y", "Z"};
+        final String[] numbersUsed = { "1", "2", "3", "4", "5", "6", "7", "8", "9"};
+        for (String s:numbersUsed) numbersList.add(s);
+        for(String s:letters)lettersList.add(s);
         runTest(level);
     }
 
     private static LinkedList<String> makeNumbers(int count) {
-        final String[] numbersUsed = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
-        int randomNumber = (int) Math.floor(Math.random() * 10);
+
+        int randomNumber = (int) Math.floor(Math.random() * numbersList.size());
         LinkedList<String> listN = new LinkedList();
         for (int i = 0; i < count; i++) {
-            listN.add(numbersUsed[randomNumber]);
-            randomNumber = (int) Math.floor(Math.random() * 10);
+
+            if(numbersList.size()>0) {
+                System.out.println(numbersList.size() + "   r:" + randomNumber + "  n:" + numbersList.get(randomNumber));
+                listN.add(numbersList.get(randomNumber));
+                numbersList.remove(randomNumber);
+            }
+            randomNumber = (int) Math.floor(Math.random() * numbersList.size());
         }
         return listN;
     }
 
     private static LinkedList<String> makeLetters(int count) {
-        final String[] letters = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "P", "Q", "R",
-                "S", "T", "U", "V", "W", "X", "Y", "Z"};
-        int randomNumber = (int) Math.floor(Math.random() * letters.length);
+
+        int randomNumber = (int) Math.floor(Math.random() * lettersList.size());
         LinkedList<String> listL = new LinkedList();
         for (int i = 0; i < count; i++) {
-            listL.add(letters[randomNumber]);
-            randomNumber = (int) Math.floor(Math.random() * letters.length);
+            listL.add(lettersList.get(randomNumber));
+            lettersList.remove(randomNumber);
+            randomNumber = (int) Math.floor(Math.random() * lettersList.size());
         }
         return listL;
     }
@@ -67,9 +78,15 @@ public class ABC123 {
         original.addAll(numbr);
         shuffle(original);
         for(String s: original) System.out.print(s);
+        sort(original);
+        for(String s:original) System.out.println(s);
     }
     private static LinkedList<String> shuffle(LinkedList<String> original){
         Collections.shuffle(original);
+        return original;
+    }
+    private static LinkedList<String> sort(LinkedList<String> original){
+        Collections.sort(original);
         return original;
     }
 }
