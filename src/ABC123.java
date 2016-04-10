@@ -78,8 +78,9 @@ public class ABC123 {
         original.addAll(numbr);
         shuffle(original);
         for(String s: original) System.out.print(s);
+        System.out.println("");
         sort(original);
-        for(String s:original) System.out.println(s);
+        for(String s:original) System.out.print(s);
     }
     private static LinkedList<String> shuffle(LinkedList<String> original){
         Collections.shuffle(original);
