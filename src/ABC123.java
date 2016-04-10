@@ -3,6 +3,7 @@
  *
  * Created by miku on 13.03.2016.
  */
+import java.util.Collections;
 import java.util.LinkedList;
 
 public class ABC123 {
@@ -30,7 +31,8 @@ public class ABC123 {
     }
 
     private static LinkedList<String> makeLetters(int count) {
-        final String[] letters = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+        final String[] letters = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "P", "Q", "R",
+                "S", "T", "U", "V", "W", "X", "Y", "Z"};
         int randomNumber = (int) Math.floor(Math.random() * letters.length);
         LinkedList<String> listL = new LinkedList();
         for (int i = 0; i < count; i++) {
@@ -63,8 +65,12 @@ public class ABC123 {
         }
         original.addAll(lett);
         original.addAll(numbr);
+        shuffle(original);
         for(String s: original) System.out.print(s);
     }
-
+    private static LinkedList<String> shuffle(LinkedList<String> original){
+        Collections.shuffle(original);
+        return original;
+    }
 }
 
