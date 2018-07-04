@@ -25,34 +25,6 @@ public class ABC123 {
         runTest(level);
     }
 
-    private static LinkedList<String> makeNumbers(int count) {
-
-        int randomNumber = (int) Math.floor(Math.random() * numbersList.size());
-        LinkedList<String> listN = new LinkedList();
-        for (int i = 0; i < count; i++) {
-
-            if(numbersList.size()>0) {
-                System.out.println(numbersList.size() + "   r:" + randomNumber + "  n:" + numbersList.get(randomNumber));
-                listN.add(numbersList.get(randomNumber));
-                numbersList.remove(randomNumber);
-            }
-            randomNumber = (int) Math.floor(Math.random() * numbersList.size());
-        }
-        return listN;
-    }
-
-    private static LinkedList<String> makeLetters(int count) {
-
-        int randomNumber = (int) Math.floor(Math.random() * lettersList.size());
-        LinkedList<String> listL = new LinkedList();
-        for (int i = 0; i < count; i++) {
-            listL.add(lettersList.get(randomNumber));
-            lettersList.remove(randomNumber);
-            randomNumber = (int) Math.floor(Math.random() * lettersList.size());
-        }
-        return listL;
-    }
-
     private LinkedList<String> getStringList(LinkedList numbers, LinkedList letters) {
         LinkedList<String> complete = new LinkedList<>();
         complete.addAll(numbers);
@@ -61,19 +33,9 @@ public class ABC123 {
     }
 
     private static void runTest(int level) {
-        LinkedList<String> lett = new LinkedList<>();
-        LinkedList<String> numbr = new LinkedList<>();
-        for (int i = 4; i < 8; i++) {
-            if (i % 2 == 0) {
-                lett = makeLetters(i / 2);
-                numbr = makeNumbers(i / 2);
-            } else {
-                lett = makeLetters((i + 1) / 2);
-                numbr = makeNumbers((i - 1) / 2);
-            }
-
-
-        }
+        Sequence sequence = new Sequence().invoke();
+        LinkedList<String> lett = sequence.getLett();
+        LinkedList<String> numbr = sequence.getNumbr();
         original.addAll(lett);
         original.addAll(numbr);
         shuffle(original);
@@ -82,6 +44,7 @@ public class ABC123 {
         sort(original);
         for(String s:original) System.out.print(s);
     }
+
     private static LinkedList<String> shuffle(LinkedList<String> original){
         Collections.shuffle(original);
         return original;
@@ -89,6 +52,62 @@ public class ABC123 {
     private static LinkedList<String> sort(LinkedList<String> original){
         Collections.sort(original);
         return original;
+    }
+
+    private static class Sequence {
+        private LinkedList<String> lett;
+        private LinkedList<String> numbr;
+
+        private static LinkedList<String> makeLetters(int count) {
+
+            int randomNumber = (int) Math.floor(Math.random() * lettersList.size());
+            LinkedList<String> listL = new LinkedList();
+            for (int i = 0; i < count; i++) {
+                listL.add(lettersList.get(randomNumber));
+                lettersList.remove(randomNumber);
+                randomNumber = (int) Math.floor(Math.random() * lettersList.size());
+            }
+            return listL;
+        }
+
+        private static LinkedList<String> makeNumbers(int count) {
+
+            int randomNumber = (int) Math.floor(Math.random() * numbersList.size());
+            LinkedList<String> listN = new LinkedList();
+            for (int i = 0; i < count; i++) {
+
+                if(numbersList.size()>0) {
+                    System.out.println(numbersList.size() + "   r:" + randomNumber + "  n:" + numbersList.get(randomNumber));
+                    listN.add(numbersList.get(randomNumber));
+                    numbersList.remove(randomNumber);
+                }
+                randomNumber = (int) Math.floor(Math.random() * numbersList.size());
+            }
+            return listN;
+        }
+
+        public LinkedList<String> getLett() {
+            return lett;
+        }
+
+        public LinkedList<String> getNumbr() {
+            return numbr;
+        }
+
+        public Sequence invoke() {
+            lett = new LinkedList<>();
+            numbr = new LinkedList<>();
+            for (int i = 4; i < 8; i++) {
+                if (i % 2 == 0) {
+                    lett = makeLetters(i / 2);
+                    numbr = makeNumbers(i / 2);
+                } else {
+                    lett = makeLetters((i + 1) / 2);
+                    numbr = makeNumbers((i - 1) / 2);
+                }
+            }
+            return this;
+        }
     }
 }
 
